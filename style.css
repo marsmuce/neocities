@@ -1,0 +1,181 @@
+/* Animations */
+@keyframes bg-scroll {
+	from { background-position: 0 0; }
+	to { background-position: 100% 100%; }
+}
+
+/* Basic Configuration*/
+
+:root {
+	cursor: url(/assets/image/cursor/miku.png), auto;
+	/* Variables */
+	--gallery-height: auto;
+	--gallery-width: auto;
+	--gap-size: 4px;
+	--margin-size: var(--gap-size);
+	--padding-size: var(--gap-size);
+	--border-size: var(--gap-size);
+	--div-buttons-content: null;
+}
+
+* { /* defaults of any element */
+	box-sizing: border-box;
+	image-rendering: crisp-edges;
+}
+
+body {
+	font-size: 13px;
+	font-family: monospace;
+	color: black;
+	background: url(/assets/image/background/blobz.gif);
+	animation-iteration-count: infinite;
+	animation-duration: 30s;
+	animation-timing-function: linear;
+}
+
+body > div { /* page wrapper */
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
+/* Subtitle Attributes */
+.subtitle {
+	font-size: smaller;
+	text-align: center
+}
+
+/* Header Properties */
+
+.header #logo img {
+	display: block;
+	max-width: 100%;
+	max-height: 100%;
+	margin: 0 auto var(--margin-size) auto;
+	pointer-events: none;
+	image-rendering: crisp-edges;
+}
+
+/* Content Containers */
+
+/* Navigation bar */
+nav { /* default appearance of navbar */
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 3em;
+	line-height: 2.5em;
+	background-color: white;
+	border: var(--border-size) double #000;
+	margin-bottom: var(--margin-size);
+}
+nav > li { display: inline-block; } /* list items horizontally */
+nav > li:not(:last-child):after {
+	content: '|'; /* seperator between list items*/
+	padding: var(--padding-size);
+}
+nav > li > a { /* default appearance of links */
+	text-decoration: none;
+	color: inherit;
+}
+nav > li > a:hover { /* appearance of links on hover */
+	font-weight: bold;
+	color: white;
+	background-color: #000;
+}
+
+/* The window contains everything between
+the header and the footer */
+.window {
+	display: flex;
+	flex-wrap: no-wrap;
+	gap: var(--gap-size);
+}
+
+/* Container titlebars */
+.titlebar {
+	display: flex;
+	justify-content: space-between;
+	color: #636363;
+	border: calc(var(--border-size)/2) solid #b7b7b7;
+	background: #fff;
+	padding: var(--padding-size);
+	font-size: 14px;
+	font-weight: bold;
+	
+	.title:before { content:"#"; margin-right: 0.5em }
+	.divButtons:after { content:var(--div-buttons-content); margin-left: 2em }
+}
+
+
+/* General container */
+.container {
+	width: 100%;
+	border: var(--border-size) double #636363;
+	background: #fff;
+	margin-bottom: var(--margin-size);
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: var(--padding-size);
+	img {
+		max-width: 100%;
+		height: auto;
+		margin: auto;
+		display: block;
+	}
+}
+
+.container:hover {
+	border: var(--border-size) double #0099ff;
+	.titlebar { color: black; border: calc(var(--border-size)/2) solid #000; }
+	.divButtons:hover { color: red; }
+}
+
+/* Main window */
+main {
+	order: 1; /* Index content second */
+	flex: 1;
+	min-width: 240px;
+	--div-buttons-content: "_ [ ] x";
+	.container {
+		text-align: center;
+		h2 { text-decoration: underline; }
+	}
+}
+
+/* Sidebar */
+aside {
+	order: 0; /* Index content first */
+	max-width: 240px;
+	font-size: smaller;
+	--div-buttons-content: "o o o";
+}
+
+
+/* Gallery */
+.gallery {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: center;
+	gap: var(--gap-size);
+}
+
+.gallery img {
+	height: var(--gallery-height);
+	width: var(--gallery-width);
+	object-fit: fill;
+	flex: auto;
+}
+
+.gallery > div { display: flex; }
+
+/* Mobile rules */
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+	.window {
+		flex-wrap: wrap;
+	}
+	main, aside {
+		min-width: 100%;
+		max-width: 100%;
+	}
+}
